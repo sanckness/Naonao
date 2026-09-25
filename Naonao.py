@@ -1,13 +1,21 @@
-import os
-import webbrowser
+import streamlit as st
+import streamlit.components.v1 as components
 
-# EXPERIENCIA DIGITAL INTERACTIVA ULTRA-PREMIUM PARA NAHOMY (375 DÍAS)
-html_content = """<!DOCTYPE html>
+# Configuración de página de Streamlit
+st.set_page_config(
+    page_title="Para Nahomy • El Regalo Más Especial ✨",
+    page_icon="💖",
+    layout="wide",
+    initial_sidebar_state="collapsed"
+)
+
+# Inyección del código HTML, CSS y JS interactivo completo
+html_code = """
+<!DOCTYPE html>
 <html lang="es">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Para Nahomy • El Regalo Más Especial ✨</title>
     <link href="https://fonts.googleapis.com/css2?family=Alex+Brush&family=Cinzel:wght@400;600;700&family=Montserrat:ital,wght@0,300;0,400;0,600;1,300&display=swap" rel="stylesheet">
     <style>
         :root {
@@ -27,7 +35,7 @@ html_content = """<!DOCTYPE html>
 
         body, html {
             width: 100%;
-            height: 100%;
+            height: 100vh;
             overflow: hidden;
             background: var(--bg-dark);
             font-family: 'Montserrat', sans-serif;
@@ -50,7 +58,7 @@ html_content = """<!DOCTYPE html>
             top: 0;
             left: 0;
             width: 100%;
-            padding: 25px 40px;
+            padding: 20px 30px;
             display: flex;
             justify-content: space-between;
             align-items: center;
@@ -97,7 +105,7 @@ html_content = """<!DOCTYPE html>
             position: relative;
             z-index: 10;
             width: 100%;
-            height: 100%;
+            height: 100vh;
             display: flex;
             justify-content: center;
             align-items: center;
@@ -107,9 +115,9 @@ html_content = """<!DOCTYPE html>
         .view-panel {
             position: absolute;
             width: 100%;
-            max-width: 850px;
-            padding: 50px 40px;
-            background: rgba(18, 12, 24, 0.55);
+            max-width: 800px;
+            padding: 45px 35px;
+            background: rgba(18, 12, 24, 0.65);
             backdrop-filter: blur(30px);
             -webkit-backdrop-filter: blur(30px);
             border: 1px solid rgba(255, 182, 193, 0.2);
@@ -140,26 +148,21 @@ html_content = """<!DOCTYPE html>
 
         h1.title-large {
             font-family: 'Alex Brush', cursive;
-            font-size: 5rem;
+            font-size: 4.5rem;
             line-height: 1.1;
             background: linear-gradient(135deg, #fff 0%, var(--primary-light) 50%, var(--accent) 100%);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
-            margin-bottom: 25px;
+            margin-bottom: 20px;
             text-shadow: 0 10px 40px rgba(255, 77, 109, 0.3);
         }
 
         p.description {
-            font-size: 1.15rem;
-            line-height: 1.9;
+            font-size: 1.1rem;
+            line-height: 1.8;
             color: rgba(255, 255, 255, 0.88);
             font-weight: 300;
-            margin-bottom: 35px;
-        }
-
-        .highlight-text {
-            color: var(--accent);
-            font-weight: 600;
+            margin-bottom: 30px;
         }
 
         /* BOTONES DE ACCIÓN */
@@ -167,7 +170,7 @@ html_content = """<!DOCTYPE html>
             background: linear-gradient(135deg, var(--primary) 0%, #c9184a 100%);
             border: 1px solid rgba(255, 255, 255, 0.3);
             color: #ffffff;
-            padding: 18px 45px;
+            padding: 16px 40px;
             font-size: 0.85rem;
             font-weight: 600;
             letter-spacing: 4px;
@@ -186,51 +189,51 @@ html_content = """<!DOCTYPE html>
             background: linear-gradient(135deg, var(--primary-light) 0%, var(--primary) 100%);
         }
 
-        /* MÓDULO 1: CONTADOR DE TIEMPO */
+        /* CONTADOR DE TIEMPO */
         .timer-grid {
             display: flex;
             justify-content: center;
-            gap: 20px;
-            margin: 30px 0;
+            gap: 15px;
+            margin: 25px 0;
         }
 
         .timer-box {
             background: rgba(255, 255, 255, 0.04);
             border: 1px solid rgba(255, 255, 255, 0.1);
-            padding: 18px 22px;
+            padding: 16px 20px;
             border-radius: 16px;
-            min-width: 90px;
+            min-width: 85px;
         }
 
         .timer-value {
             font-family: 'Cinzel', serif;
-            font-size: 2.2rem;
+            font-size: 2rem;
             font-weight: 700;
             color: var(--gold);
         }
 
         .timer-unit {
-            font-size: 0.7rem;
+            font-size: 0.65rem;
             text-transform: uppercase;
             letter-spacing: 2px;
             color: rgba(255, 255, 255, 0.6);
             margin-top: 5px;
         }
 
-        /* MÓDULO 2: GALERÍA DE RAZONES */
+        /* GALERÍA DE RAZONES */
         .cards-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-            gap: 20px;
-            margin: 30px 0;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 18px;
+            margin: 25px 0;
             text-align: left;
         }
 
         .reason-card {
             background: rgba(255, 255, 255, 0.03);
             border: 1px solid rgba(255, 182, 193, 0.15);
-            padding: 25px;
-            border-radius: 20px;
+            padding: 20px;
+            border-radius: 18px;
             transition: all 0.4s ease;
         }
 
@@ -241,69 +244,67 @@ html_content = """<!DOCTYPE html>
         }
 
         .reason-icon {
-            font-size: 1.8rem;
-            margin-bottom: 12px;
+            font-size: 1.6rem;
+            margin-bottom: 10px;
         }
 
         .reason-title {
             font-family: 'Cinzel', serif;
-            font-size: 1rem;
+            font-size: 0.95rem;
             color: var(--accent);
-            margin-bottom: 8px;
+            margin-bottom: 6px;
         }
 
         .reason-desc {
-            font-size: 0.88rem;
-            line-height: 1.6;
+            font-size: 0.85rem;
+            line-height: 1.5;
             color: rgba(255, 255, 255, 0.75);
         }
 
         /* EFECTO MECANOGRAFÍA */
         .typewriter-text {
             min-height: 120px;
-            font-size: 1.1rem;
-            line-height: 2;
+            font-size: 1.05rem;
+            line-height: 1.9;
             color: rgba(255, 255, 255, 0.95);
             font-style: italic;
             text-align: left;
-            background: rgba(0, 0, 0, 0.2);
-            padding: 25px;
+            background: rgba(0, 0, 0, 0.25);
+            padding: 22px;
             border-radius: 16px;
             border-left: 3px solid var(--primary-light);
-            margin-bottom: 30px;
+            margin-bottom: 25px;
         }
 
         @media (max-width: 650px) {
-            h1.title-large { font-size: 3.5rem; }
-            .timer-grid { gap: 10px; }
-            .timer-box { min-width: 65px; padding: 12px 10px; }
-            .timer-value { font-size: 1.5rem; }
+            h1.title-large { font-size: 3.2rem; }
+            .timer-grid { gap: 8px; }
+            .timer-box { min-width: 60px; padding: 10px 8px; }
+            .timer-value { font-size: 1.3rem; }
             nav { padding: 15px 20px; }
-            .view-panel { padding: 35px 20px; }
+            .view-panel { padding: 30px 20px; }
         }
     </style>
 </head>
 <body>
 
-    <!-- BARRA SUPERIOR CON CONTROLES -->
     <nav>
         <div class="brand">N A H O M Y</div>
         <div class="music-player-widget">
-            <button class="music-btn" onclick="toggleMusic()">🎵 <span id="music-text">Reproducir Música</span></button>
+            <button class="music-btn" onclick="toggleMusic()">🎵 <span id="music-text">Música</span></button>
             <button class="music-btn" onclick="changeTrack()">⏭️ Cambiar</button>
         </div>
     </nav>
 
     <canvas id="stage"></canvas>
 
-    <!-- REPRODUCTOR DE AUDIO MULTI-PISTA -->
     <audio id="audio-player" loop>
         <source src="https://cdn.pixabay.com/download/audio/2022/05/27/audio_1808fbf07a.mp3?filename=romantic-piano-112199.mp3" type="audio/mpeg">
     </audio>
 
     <div class="app-container">
 
-        <!-- PANEL 1: BIENVENIDA -->
+        <!-- PANEL 1 -->
         <div class="view-panel active" id="panel-1">
             <div class="tagline">Una Experiencia Exclusiva</div>
             <h1 class="title-large">Hola, Mi Beba Hermosa</h1>
@@ -313,7 +314,7 @@ html_content = """<!DOCTYPE html>
             <button class="action-btn" onclick="goToPanel(2)">Comenzar el Viaje ✨</button>
         </div>
 
-        <!-- PANEL 2: CARTA INTERACTIVA ESCRITA EN TIEMPO REAL -->
+        <!-- PANEL 2 -->
         <div class="view-panel" id="panel-2">
             <div class="tagline">Capítulo I • Desde el Corazón</div>
             <h1 class="title-large">Una Promesa Incondicional</h1>
@@ -321,7 +322,7 @@ html_content = """<!DOCTYPE html>
             <button class="action-btn" onclick="goToPanel(3)">Continuar Experiencia ➔</button>
         </div>
 
-        <!-- PANEL 3: CONTADOR DE TIEMPO ESPECIAL (AJUSTADO A 375 DÍAS+) -->
+        <!-- PANEL 3 (375 DÍAS) -->
         <div class="view-panel" id="panel-3">
             <div class="tagline">Capítulo II • El Tiempo a Tu Lado</div>
             <h1 class="title-large">Llevas Formando Parte De Mi Vida</h1>
@@ -349,7 +350,7 @@ html_content = """<!DOCTYPE html>
             <button class="action-btn" onclick="goToPanel(4)">Ver Razones Especiales ➔</button>
         </div>
 
-        <!-- PANEL 4: TARJETAS DE RAZONES -->
+        <!-- PANEL 4 -->
         <div class="view-panel" id="panel-4">
             <div class="tagline">Capítulo III • Por Qué Eres Mi Todo</div>
             <h1 class="title-large">Mis 3 Verdades</h1>
@@ -373,7 +374,7 @@ html_content = """<!DOCTYPE html>
             <button class="action-btn" onclick="goToPanel(5)">Mensaje Final ❤️</button>
         </div>
 
-        <!-- PANEL 5: MENSAJE FINAL E INTERACTIVO -->
+        <!-- PANEL 5 -->
         <div class="view-panel" id="panel-5">
             <div class="tagline">Por Siempre y Para Siempre</div>
             <h1 class="title-large">Te Amo, Nahomy</h1>
@@ -386,7 +387,6 @@ html_content = """<!DOCTYPE html>
     </div>
 
     <script>
-        // --- CONTROLADOR DE MÚSICA Y REPRODUCTOR ---
         const tracks = [
             "https://cdn.pixabay.com/download/audio/2022/05/27/audio_1808fbf07a.mp3?filename=romantic-piano-112199.mp3",
             "https://cdn.pixabay.com/download/audio/2022/03/15/audio_c8c8230560.mp3?filename=love-cinematic-piano-10709.mp3",
@@ -399,10 +399,10 @@ html_content = """<!DOCTYPE html>
         function toggleMusic() {
             if (player.paused) {
                 player.play();
-                musicText.innerText = "Pausar Música";
+                musicText.innerText = "Pausar";
             } else {
                 player.pause();
-                musicText.innerText = "Reproducir Música";
+                musicText.innerText = "Música";
             }
         }
 
@@ -410,13 +410,12 @@ html_content = """<!DOCTYPE html>
             currentTrack = (currentTrack + 1) % tracks.length;
             player.src = tracks[currentTrack];
             player.play();
-            musicText.innerText = "Pausar Música";
+            musicText.innerText = "Pausar";
         }
 
-        // --- NAVEGACIÓN ENTRE PANELES ---
         function goToPanel(panelNum) {
             if (player.paused && panelNum === 2) {
-                toggleMusic(); // Auto-reproducir al avanzar
+                toggleMusic();
             }
 
             document.querySelectorAll('.view-panel').forEach(p => p.classList.remove('active'));
@@ -428,7 +427,6 @@ html_content = """<!DOCTYPE html>
             spawnBurst();
         }
 
-        // --- EFECTO MECANOGRAFÍA ---
         const cartaTexto = "A pesar de todo, de las distancias, de los momentos difíciles o de los días grises... yo te sigo amando y te amaré siempre. Porque eres mi todo, y al ser mi todo, te vuelves automáticamente mi felicidad, mi lugar seguro y mi complemento perfecto en esta vida.";
         let typewriterIndex = 0;
         let typewriterStarted = false;
@@ -449,8 +447,6 @@ html_content = """<!DOCTYPE html>
             type();
         }
 
-        // --- CONTADOR DE TIEMPO INTERACTIVO (CONFIGURADO A 375 DÍAS EXACTOS DE BASE) ---
-        // Se calcula dinámicamente restando 375 días a la fecha actual
         const msPorDia = 1000 * 60 * 60 * 24;
         const fechaInicio = new Date(Date.now() - (375 * msPorDia));
 
@@ -471,12 +467,10 @@ html_content = """<!DOCTYPE html>
         setInterval(updateTimer, 1000);
         updateTimer();
 
-        // --- MOTOR GRÁFICO DE PARTÍCULAS INTERACTIVAS EN CANVAS ---
         const canvas = document.getElementById('stage');
         const ctx = canvas.getContext('2d');
         let width, height;
         let particles = [];
-        let mouseX = 0, mouseY = 0;
 
         function resize() {
             width = canvas.width = window.innerWidth;
@@ -486,10 +480,8 @@ html_content = """<!DOCTYPE html>
         resize();
 
         window.addEventListener('mousemove', (e) => {
-            mouseX = e.clientX;
-            mouseY = e.clientY;
             if (Math.random() > 0.4) {
-                particles.push(new Particle(mouseX, mouseY, false));
+                particles.push(new Particle(e.clientX, e.clientY, false));
             }
         });
 
@@ -512,7 +504,7 @@ html_content = """<!DOCTYPE html>
             update() {
                 this.x += this.vx;
                 this.y += this.vy;
-                if (this.isExplosion) this.vy += 0.04; // Gravedad leve
+                if (this.isExplosion) this.vy += 0.04;
                 this.alpha -= this.decay;
             }
 
@@ -527,21 +519,14 @@ html_content = """<!DOCTYPE html>
             }
         }
 
-        // Crear universo de partículas inicial
-        for (let i = 0; i < 80; i++) {
-            particles.push(new Particle());
-        }
+        for (let i = 0; i < 80; i++) particles.push(new Particle());
 
         function spawnBurst() {
-            for (let i = 0; i < 40; i++) {
-                particles.push(new Particle(width / 2, height / 2, true));
-            }
+            for (let i = 0; i < 40; i++) particles.push(new Particle(width / 2, height / 2, true));
         }
 
         function triggerFireworks() {
-            for (let i = 0; i < 150; i++) {
-                particles.push(new Particle(width / 2, height / 2, true));
-            }
+            for (let i = 0; i < 150; i++) particles.push(new Particle(width / 2, height / 2, true));
         }
 
         function animate() {
@@ -551,15 +536,10 @@ html_content = """<!DOCTYPE html>
             for (let i = particles.length - 1; i >= 0; i--) {
                 particles[i].update();
                 particles[i].draw();
-                if (particles[i].alpha <= 0) {
-                    particles.splice(i, 1);
-                }
+                if (particles[i].alpha <= 0) particles.splice(i, 1);
             }
 
-            if (particles.length < 60) {
-                particles.push(new Particle());
-            }
-
+            if (particles.length < 60) particles.push(new Particle());
             requestAnimationFrame(animate);
         }
 
@@ -569,12 +549,5 @@ html_content = """<!DOCTYPE html>
 </html>
 """
 
-# Guardar y abrir automáticamente la plataforma interactiva con los 375 días configurados
-file_path = os.path.abspath("Nahomy_Experiencia_375Dias.html")
-with open(file_path, "w", encoding="utf-8") as f:
-    f.write(html_content)
-
-print(f"✨ Plataforma generada y actualizada a 375+ días formando parte de tu vida.")
-print(f"Ubicación del archivo local: {file_path}")
-
-webbrowser.open(f"file://{file_path}")
+# Renderizar dentro de Streamlit usando HTML Component a pantalla completa
+components.html(html_code, height=950, scrolling=False)
